@@ -1,3 +1,4 @@
+//getting all the required elements
 const searchForm = document.querySelector("form");
 const movieBox = document.querySelector(".main-container");
 const inputBox = document.querySelector(".input-box");
@@ -6,7 +7,7 @@ const getMovieDetails = async (movieName) => {
     try {
         const myApiKey = "88ed39e0";
         const response = await fetch(`https://www.omdbapi.com/?t=${movieName}&apikey=${myApiKey}`);
-
+//check for valid response
         if (!response.ok) {
             if (response.status === 404) {
                 throw new Error("Movie not found");
@@ -15,7 +16,7 @@ const getMovieDetails = async (movieName) => {
             }
         }
         
-        const data = await response.json();
+        const data = await response.json();  // converting data into json formate 
 
         if (data.Response === 'False') {
             showError(data.Error); 
@@ -28,6 +29,7 @@ const getMovieDetails = async (movieName) => {
     }
 };
 
+//function to display elements
 const showMovieData = (movieData) => {
     movieBox.classList.remove("nobg");
     movieBox.innerHTML = "";
@@ -77,6 +79,7 @@ const showError = (message) => {
     movieBox.classList.add("nobg");
 };
 
+//adding event listener
 searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const movieName = inputBox.value.trim();
